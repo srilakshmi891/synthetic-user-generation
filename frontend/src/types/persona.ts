@@ -109,7 +109,7 @@ export interface GeneratePersonaRequest {
   target_audience: string;
   research_objective: string;
   number_of_personas: number;
-  provider?: 'gemini' | 'openai';
+  provider?: 'gemini' | 'openai' | 'mock';
   model_name?: string | null;
 }
 
@@ -127,11 +127,60 @@ export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  timestamp: string;
+  timestamp?: string;
 }
 
 export interface InterviewSession {
   personaId: string;
   messages: ChatMessage[];
   startedAt: string;
+}
+
+export interface InterviewRequest {
+  persona: ComprehensivePersona;
+  session_id?: string;
+  user_question: string;
+  product_context?: string;
+  provider?: 'gemini' | 'openai' | 'mock';
+  model_name?: string | null;
+}
+
+export interface InterviewResponse {
+  persona_id: string;
+  session_id: string;
+  reply: string;
+  history: ChatMessage[];
+}
+
+export interface ClearMemoryRequest {
+  persona_id: string;
+  session_id?: string;
+}
+
+export interface QuestionAnswerPair {
+  question: string;
+  answer: string;
+}
+
+export interface SurveyPersonaResult {
+  persona_id: string;
+  persona_name: string;
+  avatar_description: string;
+  occupation: string;
+  age: number;
+  quote: string;
+  answers: QuestionAnswerPair[];
+}
+
+export interface SurveyRequest {
+  personas: ComprehensivePersona[];
+  questions: string[];
+  product_context?: string;
+  provider?: 'gemini' | 'openai' | 'mock';
+  model_name?: string | null;
+}
+
+export interface SurveyResponse {
+  questions: string[];
+  results: SurveyPersonaResult[];
 }

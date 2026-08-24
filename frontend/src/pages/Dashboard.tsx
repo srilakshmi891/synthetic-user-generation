@@ -51,16 +51,37 @@ export function Dashboard() {
               interviews — all in one enterprise workspace.
             </p>
           </div>
-          <Link to="/workspace">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="bg-white text-brand-700 hover:bg-brand-50"
-            >
-              Start New Research
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/workspace">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-white text-brand-700 hover:bg-brand-50"
+              >
+                Start New Research
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <Link to="/interview">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-brand-500/30 border border-white/20 text-white hover:bg-brand-500/40"
+              >
+                Interview Mode
+              </Button>
+            </Link>
+            <Link to="/survey">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="bg-brand-500/30 border border-white/20 text-white hover:bg-brand-500/40"
+              >
+                Survey Mode
+              </Button>
+            </Link>
+          </div>
+
         </div>
       </motion.div>
 

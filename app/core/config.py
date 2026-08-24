@@ -1,22 +1,25 @@
-import os
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "AI Synthetic User Research Platform"
     API_V1_STR: str = "/api/v1"
 
-    # LLM Provider Keys
-    GOOGLE_API_KEY: str = os.getenv("GOOGLE_API_KEY", "")
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    GOOGLE_API_KEY: str = ""
+    OPENAI_API_KEY: str = ""
 
-    # Default Models
     DEFAULT_GEMINI_MODEL: str = "gemini-2.5-flash"
-    DEFAULT_OPENAI_MODEL: str = "gpt-4o"
+    DEFAULT_OPENAI_MODEL: str = "gpt-5.5"
+    LLM_PROVIDER: str = "gemini"
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+        extra="ignore"
+    )
 
 
 settings = Settings()
+
+print("Google Key Loaded:", bool(settings.GOOGLE_API_KEY))
+print("OpenAI Key Loaded:", bool(settings.OPENAI_API_KEY))

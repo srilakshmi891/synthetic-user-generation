@@ -1,5 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { MessageSquare, ArrowLeft } from "lucide-react";
 import { usePersonas } from "../context/PersonaContext";
+import { Button } from "../components/ui/Button";
 
 export function PersonaDetails() {
     const { id } = useParams();
@@ -13,10 +15,24 @@ export function PersonaDetails() {
 
     return (
         <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <Link to="/personas">
+                        <Button variant="ghost" size="sm">
+                            <ArrowLeft className="h-4 w-4" />
+                        </Button>
+                    </Link>
+                    <h1 className="text-3xl font-bold">
+                        {persona.basic_info.full_name}
+                    </h1>
+                </div>
+                <Link to={`/interview?personaId=${persona.id}`}>
+                    <Button icon={<MessageSquare className="h-4 w-4" />}>
+                        Interview Persona
+                    </Button>
+                </Link>
+            </div>
 
-            <h1 className="text-3xl font-bold">
-                {persona.basic_info.full_name}
-            </h1>
 
             <section>
                 <h2 className="text-xl font-semibold">Basic Information</h2>

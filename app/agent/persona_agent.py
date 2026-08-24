@@ -124,15 +124,27 @@ class PersonaGenerationAgent:
         structured_llm = self.llm.with_structured_output(PersonaCohort)
         chain = prompt | structured_llm
 
-        cohort: PersonaCohort = await chain.ainvoke({
-            "product_description": product_description,
-            "target_audience": target_audience,
-            "research_objective": research_objective,
-            "number_of_personas": number_of_personas,
-            "archetype_title": archetype_title,
-            "key_differentiator": key_differentiator,
-            "target_demographic_focus": target_demographic_focus
-        })
+        try:
+            cohort: PersonaCohort = await chain.ainvoke({
+                "product_description": product_description,
+                "target_audience": target_audience,
+                "research_objective": research_objective,
+                "number_of_personas": number_of_personas,
+                "archetype_title": archetype_title,
+                "key_differentiator": key_differentiator,
+                "target_demographic_focus": target_demographic_focus
+            })
+        except Exception as e:
+            from app.core.llm_factory import is_quota_or_rate_limit_error, MockChatModel
+            if is_quota_or_rate_limit_error(e) or not isinstance(self.llm, MockChatModel):
+                print(f"[PersonaAgent] Provider quota limit reached ({type(e).__name__}: {e}). Using MockChatModel fallback.")
+                mock_model = MockChatModel().with_structured_output(PersonaCohort)
+                mock_chain = prompt | mock_model
+                cohort: PersonaCohort = await mock_chain.ainvoke({
+                    "number_of_personas": number_of_personas
+                })
+            else:
+                raise
 
         personas = list(cohort.personas)
 

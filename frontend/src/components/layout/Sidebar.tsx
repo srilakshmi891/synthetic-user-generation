@@ -4,6 +4,7 @@ import {
   FlaskConical,
   Users,
   MessageSquare,
+  FileQuestion,
   BarChart3,
   Sparkles,
 } from 'lucide-react';
@@ -13,8 +14,10 @@ const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/workspace', icon: FlaskConical, label: 'Research Workspace' },
   { to: '/personas', icon: Users, label: 'Persona Gallery' },
-  { to: '/analytics', icon: BarChart3, label: 'Analytics' },
+  { to: '/interview', icon: MessageSquare, label: 'Interview Mode' },
+  { to: '/survey', icon: FileQuestion, label: 'Survey Mode' },
 ];
+
 
 export function Sidebar() {
   return (

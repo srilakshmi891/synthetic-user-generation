@@ -2,6 +2,11 @@ import type {
   GeneratePersonaRequest,
   HealthResponse,
   PersonaGenerationResponse,
+  InterviewRequest,
+  InterviewResponse,
+  ClearMemoryRequest,
+  SurveyRequest,
+  SurveyResponse,
 } from '../types/persona';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
@@ -50,6 +55,25 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
+
+  interview: (payload: InterviewRequest) =>
+    request<InterviewResponse>('/api/v1/interview', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  clearInterviewMemory: (payload: ClearMemoryRequest) =>
+    request<{ status: string; cleared: boolean }>('/api/v1/interview/clear', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  survey: (payload: SurveyRequest) =>
+    request<SurveyResponse>('/api/v1/survey', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
 };
 
 export { ApiError };
+

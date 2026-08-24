@@ -29,13 +29,16 @@ class GeneratePersonaRequest(BaseModel):
         description="Number of unique synthetic personas to generate (minimum 1, maximum 100).",
         example=3
     )
-    provider: Optional[Literal["gemini", "openai"]] = Field(
+    provider: Optional[Literal["gemini", "openai", "mock"]] = Field(
         default="gemini",
         description="LLM provider to use for persona generation."
     )
+
     model_name: Optional[str] = Field(
         default=None,
-        description="Optional model override (e.g. 'gemini-1.5-pro', 'gpt-4o')."
+        description="Optional model override. Leave empty to use the default model.",
+        examples=["gemini-2.5-flash", "gpt-5.5"]
+
     )
 
 

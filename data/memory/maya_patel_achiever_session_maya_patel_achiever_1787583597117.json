@@ -1,0 +1,12 @@
+[
+  {
+    "role": "user",
+    "content": "What features do you value most in a product?",
+    "timestamp": "2026-08-24T15:03:23.905408+00:00"
+  },
+  {
+    "role": "assistant",
+    "content": "Okay, that's a great question. For me, especially with everything I'm juggling, the features I value most boil down to efficiency, personalization, and actionable insights.\n\nFirst and foremost, **efficiency and time-saving** are critical. I'm constantly pressed for time between classes, projects, and job applications. So, any product that can cut through the noise, streamline a process, or give me exactly what I need without extra fluff is invaluable. I don't want to spend time searching or sifting through irrelevant information.\n\nSecondly, **personalization and customization**. Generic advice or one-size-fits-all solutions just don't cut it. I'm aiming for specific roles at top-tier companies, and I need a product that can adapt to *my* unique skill set, *my* target roles, and *my* learning gaps. I want it to feel like it understands my specific needs and guides me accordingly, rather than just throwing a ton of resources at me.\n\nAnd finally, **actionability**. It's not enough to just provide information; I need to know what to *do* with it. Features that offer clear next steps, track my progress, provide specific feedback, or help me translate knowledge into tangible skills or improvements are incredibly valuable. I want to see a direct impact on my goals, whether that's improving my resume, acing an interview, or learning a new ML concept effectively.\n\nBasically, I need a product that helps me learn smarter, not just harder, and directly contributes to me achieving my career goals.",
+    "timestamp": "2026-08-24T15:03:23.905408+00:00"
+  }
+]

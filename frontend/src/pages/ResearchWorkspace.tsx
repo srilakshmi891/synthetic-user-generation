@@ -173,20 +173,21 @@ export function ResearchWorkspace() {
                   onChange={(e) =>
                     setForm({
                       ...form,
-                      provider: e.target.value as 'gemini' | 'openai',
+                      provider: e.target.value as 'gemini' | 'openai' | 'mock',
                       model_name: '',
                     })
                   }
                   options={[
                     { value: 'gemini', label: 'Google Gemini' },
-                    { value: 'openai', label: 'OpenAI' },
+                    { value: 'mock', label: 'Mock Model (Dev/Offline)' },
+                    { value: 'openai', label: 'OpenAI GPT-4' },
                   ]}
                 />
                 <Select
                   label="Model"
                   value={form.model_name}
                   onChange={(e) => setForm({ ...form, model_name: e.target.value })}
-                  options={PROVIDER_MODELS[form.provider]}
+                  options={PROVIDER_MODELS[form.provider as 'gemini' | 'openai'] ?? [{ value: '', label: 'Default Mock' }]}
                 />
               </div>
 
@@ -197,14 +198,27 @@ export function ResearchWorkspace() {
               </div>
 
               {apiError && (
-                <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
-                  <div>
-                    <p className="font-medium">Generation failed</p>
-                    <p className="mt-1 text-red-600">{apiError}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl bg-amber-50 p-3.5 text-xs text-amber-800 border border-amber-200 shadow-2xs">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 text-amber-600" />
+                    <span>{apiError}</span>
                   </div>
+                  {form.provider !== 'mock' && (
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      className="text-xs bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 shrink-0"
+                      onClick={() => {
+                        setForm({ ...form, provider: 'mock', model_name: '' });
+                        setApiError(null);
+                      }}
+                    >
+                      Switch to Mock Mode
+                    </Button>
+                  )}
                 </div>
               )}
+
 
               {successCount !== null && (
                 <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
