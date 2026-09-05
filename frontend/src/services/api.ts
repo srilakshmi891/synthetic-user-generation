@@ -73,7 +73,18 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
+
+  extractInsights: (payload: import('../types/persona').InsightExtractionRequest) =>
+    request<import('../types/persona').InsightResult>('/api/v1/insights/extract', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  scoreProductUsage: (payload: import('../types/persona').InsightExtractionRequest) =>
+    request<import('../types/persona').InsightResult>('/api/v1/insights/scoring', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
 };
 
 export { ApiError };
-

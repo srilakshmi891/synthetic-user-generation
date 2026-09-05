@@ -153,8 +153,12 @@ export function InterviewWorkspace() {
           </p>
         </div>
 
-        {/* Controls: Provider & Persona Selector */}
+        {/* Controls: Provider & Persona Selector & Insight Link */}
         <div className="flex flex-wrap items-center gap-3">
+          <Button variant="outline" size="sm" onClick={() => navigate('/insights')} icon={<Sparkles className="h-4 w-4 text-brand-600" />}>
+            View Insights & Scores
+          </Button>
+
           <div className="flex items-center gap-2">
             <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Provider:
@@ -190,6 +194,7 @@ export function InterviewWorkspace() {
             </select>
           </div>
         </div>
+
       </div>
 
 

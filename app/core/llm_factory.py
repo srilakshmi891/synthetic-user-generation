@@ -63,8 +63,13 @@ class MockChatModel(BaseChatModel):
             from app.models.persona import ComprehensivePersona, PersonaCohort
             
             num_personas = 1
-            if isinstance(input, dict):
+            input_str = str(input)
+            m_num = re.search(r"Number of Personas Required:\s*(\d+)", input_str)
+            if m_num:
+                num_personas = int(m_num.group(1))
+            elif isinstance(input, dict):
                 num_personas = input.get("number_of_personas", 1)
+
             
             personas_pool = [
                 ComprehensivePersona(
@@ -123,14 +128,43 @@ class MockChatModel(BaseChatModel):
                     technical_skills={"overall_proficiency": "Advanced", "domain_expertise": ["Figma", "Design Systems", "Prototyping"], "software_proficiency": {"Figma": "Expert", "Webflow": "Advanced"}},
                     technology_usage={"primary_devices": ["MacBook Air", "iPad Pro"], "operating_systems": ["macOS", "iOS"], "favorite_apps": ["Figma", "Linear", "Cron"], "daily_screen_time_hours": 9.0, "tech_adoption_stage": "Innovator"},
                     quote="Design should feel effortless and inclusive; every detail matters."
+                ),
+                ComprehensivePersona(
+                    basic_info={
+                        "persona_id": "aarav_sharma_mock",
+                        "full_name": "Aarav Sharma",
+                        "avatar_description": "A college student with headphones studying at the campus library",
+                        "bio": "Computer science student seeking affordable meal delivery deals during study sessions."
+                    },
+                    demographics={"age": 20, "gender": "Male", "ethnicity": "South Asian", "location": "Boston, MA", "marital_status": "Single", "household_income": "$18,000"},
+                    education={"degree_level": "Bachelor's Degree", "field_of_study": "Computer Science", "institution_type": "Public University"},
+                    occupation={"job_title": "Computer Science Student", "industry": "Education", "company_size": "Student", "work_mode": "In-person", "key_responsibilities": ["Coding labs", "Exam prep", "Group study"]},
+                    goals={"primary_goals": ["Save money on daily meals", "Get quick late-night food delivery"], "secondary_goals": ["Land a tech internship"], "personal_aspirations": ["Build an AI app"]},
+                    motivations={"intrinsic_motivations": ["Curiosity", "Independence"], "extrinsic_motivations": ["Discounts", "Coupons"], "core_values": ["Frugality", "Speed"]},
+                    challenges={"pain_points": ["High delivery fees", "Expensive order minimums"], "daily_frustrations": ["Slow peak hour delivery"], "workflow_blockers": ["Limited budget"]},
+                    behaviour={"decision_making_style": "Price-driven", "purchasing_behavior": "Compares deals across apps", "media_consumption": ["YouTube", "Reddit"], "discovery_channels": ["Social media", "Friends"]},
+                    personality_traits={"big_five_summary": {"Openness": "High"}, "key_traits": ["Frugal", "Tech-savvy", "Energetic"], "communication_style": "Casual & direct", "attitude_towards_change": "Enthusiastic"},
+                    technical_skills={"overall_proficiency": "Advanced", "domain_expertise": ["Python", "JavaScript"], "software_proficiency": {"VS Code": "Expert", "Git": "Proficient"}},
+                    technology_usage={"primary_devices": ["Android Phone", "Linux Laptop"], "operating_systems": ["Android", "Ubuntu"], "favorite_apps": ["Reddit", "Spotify", "Swiggy"], "daily_screen_time_hours": 7.0, "tech_adoption_stage": "Early Adopter"},
+                    quote="I always check for promo codes before placing any food order."
                 )
             ]
-            
-            selected = personas_pool[:num_personas]
-            if len(selected) < num_personas:
-                selected = personas_pool * ((num_personas // len(personas_pool)) + 1)
-                selected = selected[:num_personas]
+
+            if num_personas <= len(personas_pool):
+                selected = personas_pool[:num_personas]
+            else:
+                selected = []
+                for idx in range(num_personas):
+                    base_p = personas_pool[idx % len(personas_pool)]
+                    p_dict = base_p.model_dump()
+                    if idx >= len(personas_pool):
+                        suffix = f"_{idx+1}"
+                        p_dict["basic_info"]["persona_id"] += suffix
+                        p_dict["basic_info"]["full_name"] += f" {idx+1}"
+                    selected.append(ComprehensivePersona(**p_dict))
+
             return PersonaCohort(personas=selected)
+
 
         # -------------------------------------------------------------
         # 2. SURVEY MODE (PersonaSurveyAnswers structured output)

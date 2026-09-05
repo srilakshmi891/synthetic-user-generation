@@ -1,6 +1,15 @@
 import asyncio
+import sys
+import os
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+
+sys.path.insert(0, os.path.abspath("."))
+
 from app.models.persona import ComprehensivePersona
 from app.validation.validator import PersonaValidator
+
 
 async def test_validator():
     validator = PersonaValidator(llm_provider=None) # Testing fast deterministic mode

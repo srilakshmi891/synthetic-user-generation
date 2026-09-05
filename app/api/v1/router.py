@@ -8,10 +8,13 @@ from app.core.llm_factory import get_llm
 
 from app.api.v1.interview import router as interview_router
 from app.api.v1.survey import router as survey_router
+from app.api.v1.insights import router as insights_router
 
 router = APIRouter()
 router.include_router(interview_router)
 router.include_router(survey_router)
+router.include_router(insights_router)
+
 
 
 def get_agent_service(payload: GeneratePersonaRequest) -> PersonaGenerationAgent:

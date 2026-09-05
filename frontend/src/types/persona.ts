@@ -184,3 +184,95 @@ export interface SurveyResponse {
   questions: string[];
   results: SurveyPersonaResult[];
 }
+
+export interface ThemeItem {
+  theme: string;
+  frequency: number;
+  percentage: number;
+  description: string;
+  supporting_personas: string[];
+}
+
+export interface SentimentBreakdown {
+  positive: number;
+  neutral: number;
+  negative: number;
+  positive_count?: number;
+  neutral_count?: number;
+  negative_count?: number;
+}
+
+export interface AgreementPattern {
+  question_or_topic: string;
+  agreement_percentage: number;
+  majority_response: string;
+  minority_response: string;
+  agreed_personas: string[];
+  disagreed_personas: string[];
+}
+
+export interface BehavioralTrend {
+  trend: string;
+  frequency: number;
+  percentage: number;
+  description: string;
+  supporting_personas: string[];
+}
+
+export interface PersonaUsageScore {
+  persona_id: string;
+  persona_name: string;
+  score: number;
+  decision: string;
+  reasoning: string;
+  positive_factors: string[];
+  negative_factors: string[];
+}
+
+export interface SegmentUsageScore {
+  segment_name: string;
+  average_score: number;
+  persona_count: number;
+  reasoning: string;
+  personas: string[];
+}
+
+export interface AggregateUsageScore {
+  overall_score: number;
+  total_personas_analyzed: number;
+  percentage_likely_to_use: number;
+  percentage_unlikely_to_use: number;
+  highest_scoring_segment: string;
+  lowest_scoring_segment: string;
+  summary: string;
+}
+
+export interface InsightExtractionRequest {
+  personas: ComprehensivePersona[];
+  interview_transcripts?: Array<{
+    persona_id: string;
+    persona_name: string;
+    messages: Array<{ role: string; content: string }>;
+  }>;
+  survey_responses?: Array<{
+    persona_id: string;
+    persona_name: string;
+    answers: QuestionAnswerPair[];
+  }>;
+  product_context: string;
+  provider?: 'gemini' | 'openai' | 'mock';
+  model_name?: string | null;
+}
+
+export interface InsightResult {
+  summary: string;
+  recurring_themes: ThemeItem[];
+  sentiment: SentimentBreakdown;
+  agreement_patterns: AgreementPattern[];
+  behavioral_trends: BehavioralTrend[];
+  key_findings: string[];
+  recommendations: string[];
+  persona_scores: PersonaUsageScore[];
+  aggregate_score: AggregateUsageScore;
+  segment_scores: SegmentUsageScore[];
+}

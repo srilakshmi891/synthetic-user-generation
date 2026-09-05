@@ -5,6 +5,7 @@ import { PersonaGallery } from "./pages/PersonaGallery";
 import { PersonaDetails } from "./pages/PersonaDetails";
 import { InterviewWorkspace } from "./pages/InterviewWorkspace";
 import { SurveyWorkspace } from "./pages/SurveyWorkspace";
+import { InsightDashboard } from "./pages/InsightDashboard";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Route path="/personas/:id" element={<PersonaDetails />} />
       <Route path="/interview" element={<InterviewWorkspace />} />
       <Route path="/survey" element={<SurveyWorkspace />} />
+      <Route path="/insights" element={<InsightDashboard />} />
     </Routes>
   );
 }

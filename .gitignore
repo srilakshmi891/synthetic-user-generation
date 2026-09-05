@@ -1,2 +1,9 @@
-
+venv/
+.venv/
+__pycache__/
+*.pyc
 .env
+frontend/node_modules/
+node_modules/
+data/memory/*.json
+.git_corrupted_backup/

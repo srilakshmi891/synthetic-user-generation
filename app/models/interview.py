@@ -26,3 +26,24 @@ class InterviewResponse(BaseModel):
 class ClearMemoryRequest(BaseModel):
     persona_id: str
     session_id: str = "default_session"
+
+class StartInterviewRequest(BaseModel):
+    persona: ComprehensivePersona = Field(..., description="Target persona for interview.")
+    session_id: Optional[str] = Field(None, description="Optional custom session ID.")
+    product_context: Optional[str] = Field(None, description="Product description or research domain context.")
+
+class InterviewSessionInfo(BaseModel):
+    interview_id: str
+    persona_id: str
+    persona_name: str
+    product_context: Optional[str] = None
+    start_timestamp: str
+    status: Literal["active", "completed"] = "active"
+    messages: List[ChatMessagePayload]
+
+class InterviewMessageRequest(BaseModel):
+    persona: ComprehensivePersona
+    user_question: str = Field(..., min_length=1)
+    product_context: Optional[str] = None
+    provider: Optional[Literal["gemini", "openai", "mock"]] = "gemini"
+    model_name: Optional[str] = None

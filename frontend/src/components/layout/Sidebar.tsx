@@ -16,7 +16,9 @@ const navItems = [
   { to: '/personas', icon: Users, label: 'Persona Gallery' },
   { to: '/interview', icon: MessageSquare, label: 'Interview Mode' },
   { to: '/survey', icon: FileQuestion, label: 'Survey Mode' },
+  { to: '/insights', icon: BarChart3, label: 'Insight Dashboard' },
 ];
+
 
 
 export function Sidebar() {

@@ -28,7 +28,7 @@ export function SurveyWorkspace() {
     personas.map((p) => p.id)
   );
   const [questions, setQuestions] = useState<string[]>([
-    'What is your biggest frustration when adopting new technology or software?',
+    'how many subject have you failed before?',
   ]);
   const [productContext, setProductContext] = useState<string>('');
 
@@ -196,18 +196,16 @@ export function SurveyWorkspace() {
                   <div
                     key={persona.id}
                     onClick={() => togglePersona(persona.id)}
-                    className={`flex items-center gap-3 rounded-xl border p-3 cursor-pointer transition-all ${
-                      isSelected
+                    className={`flex items-center gap-3 rounded-xl border p-3 cursor-pointer transition-all ${isSelected
                         ? 'border-brand-300 bg-brand-50/60 shadow-2xs'
                         : 'border-slate-200/80 bg-white hover:bg-slate-50'
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
-                        isSelected
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${isSelected
                           ? 'border-brand-600 bg-brand-600 text-white'
                           : 'border-slate-300 bg-white'
-                      }`}
+                        }`}
                     >
                       {isSelected && <CheckSquare className="h-3.5 w-3.5" />}
                     </div>
